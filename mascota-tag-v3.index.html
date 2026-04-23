@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>🐾 Pet Tag MX</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --cream: #FFF8F0;
+    --warm: #FF6B35;
+    --soft: #FFB347;
+    --dark: #2D1B0E;
+    --mid: #7A4F2D;
+    --shadow: rgba(45,27,14,0.12);
+  }
+
+  body {
+    background: var(--cream);
+    font-family: 'Nunito', sans-serif;
+    min-height: 100vh;
+    max-width: 420px;
+    margin: 0 auto;
+    overflow-x: hidden;
+  }
+
+  .hero {
+    background: linear-gradient(160deg, #FF6B35 0%, #FFB347 60%, #FFD580 100%);
+    padding: 0 0 70px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '🐾';
+    position: absolute;
+    font-size: 180px;
+    opacity: 0.08;
+    top: -20px;
+    right: -30px;
+    transform: rotate(-15deg);
+  }
+
+  .hero-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px 0;
+  }
+
+  .tag-logo {
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+
+  .avatar-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 24px;
+    gap: 14px;
+  }
+
+  /* FOTO CUADRADA CON ESQUINAS REDONDEADAS */
+  .avatar-card {
+    width: 150px;
+    height: 150px;
+    border-radius: 24px;
+    background: white;
+    padding: 6px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    animation: flotar 3s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  @keyframes flotar {
+    0%, 100% { transform: translateY(0) rotate(-1deg); }
+    50% { transform: translateY(-6px) rotate(1deg); }
+  }
+
+  .avatar-svg {
+    width: 128px;
+    height: 128px;
+    border-radius: 18px;
+  }
+
+  .avatar-foto {
+    width: 138px;
+    height: 138px;
+    border-radius: 20px;
+    object-fit: cover;
+    display: none;
+  }
+
+  .pet-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    color: white;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    line-height: 1;
+  }
+
+  .pet-breed {
+    font-size: 14px;
+    color: rgba(255,255,255,0.9);
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-top: -8px;
+  }
+
+  .content {
+    padding: 0 18px 32px;
+    margin-top: -48px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .card {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 20px var(--shadow);
+    animation: slideUp 0.5s ease both;
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card:nth-child(1) { animation-delay: 0.1s; }
+  .card:nth-child(2) { animation-delay: 0.2s; }
+  .card:nth-child(3) { animation-delay: 0.3s; }
+
+  .card-title {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: var(--warm);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .card-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #FFE8D6;
+  }
+
+  .info-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid #FFF3E8;
+  }
+
+  .info-row:last-child { border-bottom: none; }
+
+  .info-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: #FFF3E8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .info-label {
+    font-size: 11px;
+    color: #B08060;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .info-value {
+    font-size: 15px;
+    color: var(--dark);
+    font-weight: 700;
+  }
+
+  .btn-whatsapp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #25D366;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    padding: 16px;
+    border-radius: 16px;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(37,211,102,0.35);
+    transition: transform 0.15s;
+  }
+
+  .btn-whatsapp:active { transform: scale(0.97); }
+
+  .btn-llamar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--warm);
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    padding: 16px;
+    border-radius: 16px;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(255,107,53,0.35);
+    transition: transform 0.15s;
+    margin-top: 10px;
+  }
+
+  .btn-llamar:active { transform: scale(0.97); }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .chip {
+    background: #FFF3E8;
+    border: 1.5px solid #FFD0A8;
+    color: var(--mid);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 20px;
+  }
+
+  .chip.alert {
+    background: #FFF0F0;
+    border-color: #FFB8B8;
+    color: #D93025;
+  }
+
+  .chip.ok {
+    background: #F0FFF4;
+    border-color: #A8E6BA;
+    color: #1A7F37;
+  }
+
+  .nota-box {
+    background: #FFF8E7;
+    border-left: 4px solid var(--soft);
+    border-radius: 0 12px 12px 0;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: var(--mid);
+    font-weight: 600;
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 10px 0 28px;
+    font-size: 11px;
+    color: #C09870;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  .footer span { color: var(--warm); }
+
+  /* ===== PANEL EDITOR ===== */
+  .editor-panel {
+    background: #2D1B0E;
+    color: white;
+    padding: 20px 18px;
+  }
+
+  .editor-panel h2 {
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: #FFB347;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .field-group label {
+    font-size: 11px;
+    color: #FFB347;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .field-group input,
+  .field-group select,
+  .field-group textarea {
+    background: #3D2B1E;
+    border: 1.5px solid #5A3D28;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    width: 100%;
+    outline: none;
+  }
+
+  .field-group select option { background: #2D1B0E; }
+
+  .field-group textarea {
+    resize: none;
+    height: 70px;
+  }
+
+  .btn-actualizar {
+    background: var(--warm);
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 900;
+    padding: 14px;
+    border-radius: 14px;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: transform 0.15s;
+    margin-top: 4px;
+  }
+
+  .btn-actualizar:active { transform: scale(0.97); }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .toggle-editor {
+    background: #3D2B1E;
+    color: #FFB347;
+    font-family: 'Nunito', sans-serif;
+    font-size: 12px;
+    font-weight: 900;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1.5px solid #5A3D28;
+    width: 100%;
+    cursor: pointer;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+
+  .editor-content.hidden { display: none; }
+
+  .checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .checkbox-row input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--warm);
+  }
+
+  .checkbox-row label {
+    font-size: 13px;
+    color: white;
+    font-weight: 600;
+  }
+
+  /* FOTO UPLOAD */
+  .foto-upload-area {
+    border: 2px dashed #5A3D28;
+    border-radius: 14px;
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    margin-bottom: 12px;
+  }
+
+  .foto-upload-area:hover { border-color: var(--warm); }
+
+  .foto-upload-area input[type="file"] {
+    display: none;
+  }
+
+  .foto-preview-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+  }
+
+  .foto-preview {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    object-fit: cover;
+    display: none;
+    border: 2px solid var(--warm);
+  }
+
+  .foto-status {
+    font-size: 12px;
+    color: #FFB347;
+    font-weight: 700;
+  }
+
+  .btn-quitar-foto {
+    background: #5A3D28;
+    color: #FFB347;
+    font-family: 'Nunito', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    display: none;
+  }
+
+  .seccion-titulo {
+    font-size: 12px;
+    color: #FFB347;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin: 16px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #3D2B1E;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== PANEL EDITOR ===== -->
+<div class="editor-panel">
+  <h2>⚙️ Panel del vendedor</h2>
+  <button class="toggle-editor" onclick="toggleEditor()">▼ MOSTRAR / OCULTAR CAMPOS</button>
+
+  <div class="editor-content" id="editorContent">
+
+    <div class="seccion-titulo">📸 Foto del perrito</div>
+
+    <!-- UPLOAD FOTO -->
+    <div class="foto-upload-area" onclick="document.getElementById('inputFoto').click()">
+      <div style="font-size:32px; margin-bottom:6px;">📷</div>
+      <div style="font-size:13px; color:#FFB347; font-weight:700;">Toca aquí para subir foto</div>
+      <div style="font-size:11px; color:#7A5A40; margin-top:4px;">JPG o PNG · Máx 5MB</div>
+      <input type="file" id="inputFoto" accept="image/*" onchange="cargarFoto(event)">
+    </div>
+
+    <div class="foto-preview-wrap">
+      <img id="fotoPreview" class="foto-preview" src="" alt="preview">
+      <div>
+        <div class="foto-status" id="fotoStatus">Sin foto · usando ilustración</div>
+        <button class="btn-quitar-foto" id="btnQuitarFoto" onclick="quitarFoto()">✕ Quitar foto</button>
+      </div>
+    </div>
+
+    <div class="seccion-titulo">🐾 Datos de la mascota</div>
+
+    <div class="two-col">
+      <div class="field-group">
+        <label>Nombre del perrito</label>
+        <input type="text" id="petName" value="Firulais" oninput="actualizar()">
+      </div>
+      <div class="field-group">
+        <label>Raza</label>
+        <select id="petRaza" onchange="actualizar()">
+          <option value="mestizo">Mestizo / Criollo</option>
+          <option value="chihuahua">Chihuahua</option>
+          <option value="golden" selected>Golden / Labrador</option>
+          <option value="poodle">Poodle / French Poodle</option>
+          <option value="maltes">Maltés</option>
+          <option value="bulldog">Bulldog</option>
+          <option value="frenchbulldog">French Bulldog</option>
+          <option value="pitbull">Pitbull</option>
+          <option value="pastor">Pastor Alemán</option>
+          <option value="border">Border Collie</option>
+          <option value="xolo">Xoloescuintle</option>
+          <option value="gato">Gato</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="field-group">
+        <label>Edad</label>
+        <input type="text" id="petEdad" value="3 años" oninput="actualizar()">
+      </div>
+      <div class="field-group">
+        <label>Sexo</label>
+        <select id="petSexo" onchange="actualizar()">
+          <option value="Macho">Macho</option>
+          <option value="Hembra">Hembra</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="field-group">
+        <label>¿Castrado/a?</label>
+        <select id="petCastrado" onchange="actualizar()">
+          <option value="Sí">Sí</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Color / Señas</label>
+        <input type="text" id="petColor" value="Dorado" oninput="actualizar()">
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label>Microchip # (opcional)</label>
+      <input type="text" id="petChip" value="985112345678901" oninput="actualizar()">
+    </div>
+
+    <div class="seccion-titulo">👤 Datos del dueño</div>
+
+    <div class="field-group">
+      <label>Nombre del dueño</label>
+      <input type="text" id="ownerName" value="Carlos Martínez" oninput="actualizar()">
+    </div>
+
+    <div class="two-col">
+      <div class="field-group">
+        <label>Teléfono (sin lada)</label>
+        <input type="text" id="ownerPhone" value="5512345678" oninput="actualizar()">
+      </div>
+      <div class="field-group">
+        <label>Colonia / Ciudad</label>
+        <input type="text" id="ownerColonia" value="Del Valle, CDMX" oninput="actualizar()">
+      </div>
+    </div>
+
+    <div class="seccion-titulo">🏥 Salud</div>
+
+    <div class="checkbox-row">
+      <input type="checkbox" id="chkVacunas" checked onchange="actualizar()">
+      <label for="chkVacunas">✅ Vacunas al día</label>
+    </div>
+    <div class="checkbox-row">
+      <input type="checkbox" id="chkDespa" checked onchange="actualizar()">
+      <label for="chkDespa">✅ Desparasitado/a</label>
+    </div>
+    <div class="checkbox-row">
+      <input type="checkbox" id="chkAlergia" checked onchange="actualizar()">
+      <label for="chkAlergia">⚠️ Tiene alergias</label>
+    </div>
+    <div class="checkbox-row">
+      <input type="checkbox" id="chkMedicamento" onchange="actualizar()">
+      <label for="chkMedicamento">💊 Toma medicamento</label>
+    </div>
+
+    <div class="field-group" id="medicamentoField" style="display:none; margin-top:8px;">
+      <label>¿Qué medicamento?</label>
+      <input type="text" id="petMedicamento" value="" oninput="actualizar()">
+    </div>
+
+    <div class="field-group" style="margin-top:12px;">
+      <label>Notas médicas / instrucciones</label>
+      <textarea id="petNota" oninput="actualizar()">⚠️ Alérgico al pollo. No darle alimento que lo contenga. En emergencia llamar al Dr. López: 5512345678</textarea>
+    </div>
+
+    <button class="btn-actualizar" onclick="actualizar()">🔄 ACTUALIZAR VISTA</button>
+    <br><br>
+  </div>
+</div>
+
+<!-- ===== VISTA DEL CLIENTE ===== -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="tag-logo">🏷️ PET TAG MX</div>
+  </div>
+  <div class="avatar-wrap">
+    <div class="avatar-card">
+      <!-- SVG por defecto -->
+      <svg class="avatar-svg" id="petSVG" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
+      <!-- Foto real (se muestra si hay foto) -->
+      <img id="petFoto" class="avatar-foto" src="" alt="foto mascota">
+    </div>
+    <div class="pet-name" id="displayName">Firulais</div>
+    <div class="pet-breed" id="displayBreed">Golden Retriever · 3 años</div>
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="card">
+    <div class="card-title">🚨 Contacto de emergencia</div>
+    <div class="info-row">
+      <div class="info-icon">👤</div>
+      <div>
+        <div class="info-label">Dueño</div>
+        <div class="info-value" id="displayOwner">Carlos Martínez</div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-icon">📍</div>
+      <div>
+        <div class="info-label">Colonia</div>
+        <div class="info-value" id="displayColonia">Del Valle, CDMX</div>
+      </div>
+    </div>
+    <br>
+    <a class="btn-whatsapp" id="btnWhatsapp" href="#" target="_blank">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Avisar por WhatsApp
+    </a>
+    <a class="btn-llamar" id="btnLlamar" href="#">
+      📞 Llamar al dueño
+    </a>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🐾 Mi perfil</div>
+    <div class="info-row">
+      <div class="info-icon">🎂</div>
+      <div>
+        <div class="info-label">Edad</div>
+        <div class="info-value" id="displayEdad">3 años</div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-icon">⚥</div>
+      <div>
+        <div class="info-label">Sexo</div>
+        <div class="info-value" id="displaySexo">Macho · Castrado ✅</div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-icon">🎨</div>
+      <div>
+        <div class="info-label">Color / Señas</div>
+        <div class="info-value" id="displayColor">Dorado</div>
+      </div>
+    </div>
+    <div class="info-row" id="chipRow">
+      <div class="info-icon">💉</div>
+      <div>
+        <div class="info-label">Microchip</div>
+        <div class="info-value" id="displayChip">#985112345678901</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🏥 Salud</div>
+    <div class="chips" id="displayChips"></div>
+    <div class="nota-box" id="displayNota"></div>
+  </div>
+
+</div>
+
+<div class="footer">Hecho con ❤️ por <span>PET TAG MX</span></div>
+
+<script>
+const razaSVGs = {
+  mestizo: `<circle cx="50" cy="45" r="28" fill="#C8A870"/>
+    <ellipse cx="35" cy="22" rx="10" ry="14" fill="#A07840" transform="rotate(-15 35 22)"/>
+    <ellipse cx="65" cy="22" rx="10" ry="14" fill="#A07840" transform="rotate(15 65 22)"/>
+    <circle cx="50" cy="45" r="22" fill="#D4B880"/>
+    <circle cx="42" cy="40" r="4" fill="#3D2B0E"/>
+    <circle cx="58" cy="40" r="4" fill="#3D2B0E"/>
+    <circle cx="43" cy="39" r="1.5" fill="white"/>
+    <circle cx="59" cy="39" r="1.5" fill="white"/>
+    <ellipse cx="50" cy="50" rx="6" ry="4" fill="#C08060"/>
+    <path d="M44 55 Q50 60 56 55" stroke="#3D2B0E" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <ellipse cx="50" cy="75" rx="18" ry="12" fill="#C8A870"/>`,
+
+  chihuahua: `<ellipse cx="50" cy="42" rx="24" ry="26" fill="#D4A870"/>
+    <ellipse cx="33" cy="18" rx="9" ry="16" fill="#C49860" transform="rotate(-10 33 18)"/>
+    <ellipse cx="67" cy="18" rx="9" ry="16" fill="#C49860" transform="rotate(10 67 18)"/>
+    <circle cx="42" cy="38" r="5" fill="#2D1B0E"/>
+    <circle cx="58" cy="38" r="5" fill="#2D1B0E"/>
+    <circle cx="43" cy="37" r="2" fill="white"/>
+    <circle cx="59" cy="37" r="2" fill="white"/>
+    <ellipse cx="50" cy="48" rx="5" ry="3.5" fill="#B07850"/>
+    <path d="M44 53 Q50 59 56 53" stroke="#2D1B0E" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <ellipse cx="50" cy="76" rx="14" ry="10" fill="#D4A870"/>`,
+
+  golden: `<circle cx="50" cy="44" r="26" fill="#E8B840"/>
+    <ellipse cx="34" cy="24" rx="11" ry="15" fill="#D4A030" transform="rotate(-10 34 24)"/>
+    <ellipse cx="66" cy="24" rx="11" ry="15" fill="#D4A030" transform="rotate(10 66 24)"/>
+    <circle cx="50" cy="44" r="20" fill="#F0C850"/>
+    <circle cx="42" cy="39" r="4" fill="#2D1B0E"/>
+    <circle cx="58" cy="39" r="4" fill="#2D1B0E"/>
+    <circle cx="43" cy="38" r="1.5" fill="white"/>
+    <circle cx="59" cy="38" r="1.5" fill="white"/>
+    <ellipse cx="50" cy="49" rx="6" ry="4" fill="#D4A030"/>
+    <path d="M44 54 Q50 60 56 54" stroke="#2D1B0E" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <ellipse cx="50" cy="76" rx="20" ry="12" fill="#E8B840"/>`,
+
+  poodle: `<circle cx="50" cy="44" r="22" fill="#F0E0D0"/>
+    <circle cx="33" cy="22" r="12" fill="#E8D0C0"/>
+    <circle cx="67" cy="22" r="12" fill="#E8D0C0"/>
+    <circle cx="50" cy="28" r="14" fill="#F0E0D0"/>
+    <circle cx="42" cy="40" r="4" fill="#2D1B0E"/>
+    <circle cx="58" cy="40" r="4" fill="#2D1B0E"/>
+    <circle cx="43" cy="39" r="1.5" fill="white"/>
+    <circle cx="59" cy="39" r="1.5" fill="white"/>
+    <ellipse cx="50" cy="50" rx="5" ry="3.5" fill="#D0B0A0"/>
+    <path d="M44 55 Q50 61 56 55" stroke="#2D1B0E" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <circle cx="30" cy="70" r="9" fill="#E8D0C0"/>
+    <circle cx="70" cy="70" r="9" fill="#E8D0C0"/>
+    <ellipse cx="50" cy="74" rx="12" ry="8" fill="#F0E0D0"/>`,
+
+  maltes: `<circle cx="50" cy="44" r="26" fill="#F8F4F0"/>
+    <ellipse cx="34" cy="22" rx="10" ry="14" fill="#F0EAE4" transform="rotate(-8 34 22)"/>
+    <ellipse cx="66" cy="22" rx="10" ry="14" fill="#F0EAE4" transform="rotate(8 66 22)"/>
+    <circle cx="42" cy="40" r="4.5" fill="#1A1A2E"/>
+    <circle cx="58" cy="40" r="4.5" fill="#1A1A2E"/>
+    <circle cx="43" cy="39" r="2" fill="white"/>
+    <circle cx="59" cy="39" r="2" fill="white"/>
+    <ellipse cx="50" cy="50" rx="5" ry="3.5" fill="#E0C8C0"/>
+    <path d="M44 55 Q50 61 56 55" stroke="#1A1A2E" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <ellipse cx="50" cy="76" rx="18" ry="11" fill="#F8F4F0"/>`,
+
+  bulldog: `<ellipse cx="50" cy="50" rx="30" ry="26" fill="#C8B090"/>
+    <ellipse cx="30" cy="28" rx="10" ry="8" fill="#B8A080" transform="rotate(-20 30 28)"/>
+    <ellipse cx="70" cy="28" rx="10" ry="8" fill="#B8A080" transform="rotate(20 70 28)"/>
+    <ellipse cx="50" cy="44" rx="22" ry="18" fill="#D4BC98"/>
+    <circle cx="41" cy="38" r="5" fill="#2D1B0E"/>
+    <circle cx="59" cy="38" r="5" fill="#2D1B0E"/>
+    <circle cx="42" cy="37" r="2" fill="white"/>
+    <circle cx="60" cy="37" r="2" fill="white"/>
+    <ellipse cx="50" cy="54" rx="10" ry="6" fill="#C8A880"/>
+    <path d="M41 54 Q50 62 59 54" stroke="#2D1B0E" stroke-width="2" fill="none" stroke-linecap="round"/>`,
+
+  frenchbulldog: `<ellipse cx="50" cy="48" rx="28" ry="26" fill="#808080"/>
+    <ellipse cx="34" cy="20" rx="12" ry="14" fill="#606060"/>
+    <ellipse cx="66" cy="20" rx="12" ry="14" fill="#606060"/>
+    <ellipse cx="50" cy="44" rx="20" ry="18" fill="#909090"/>
+    <circle cx="41" cy="39" r="5" fill="#1A1A1A"/>
+    <circle cx="59" cy="39" r="5" fill="#1A1A1A"/>
+    <circle cx="42" cy="38" r="2" fill="white"/>
+    <circle cx="60" cy="38" r="2" fill="white"/>
+    <ellipse cx="50" cy="52" rx="9" ry="5" fill="#707070"/>
+    <circle cx="45" cy="50" r="3" fill="#505050"/>
+    <circle cx="55" cy="50" r="3" fill="#505050"/>
+    <path d="M42 55 Q50 62 58 55" stroke="#1A1A1A" stroke-width="2" fill="none" stroke-linecap="round"/>`,
+
+  pitbull: `<ellipse cx="50" cy="46" rx="28" ry="26" fill="#A08060"/>
+    <ellipse cx="32" cy="24" rx="9" ry="10" fill="#907050" transform="rotate(-5 32 24)"/>
+    <ellipse cx="68" cy="24" rx="9" ry="10" fill="#907050" transform="rotate(5 68 24)"/>
+    <ellipse cx="50" cy="44" rx="22" ry="20" fill="#B09070"/>
+    <circle cx="41" cy="38" r="5" fill="#1A1A1A"/>
+    <circle cx="59" cy="38" r="5" fill="#1A1A1A"/>
+    <circle cx="42" cy="37" r="2" fill="white"/>
+    <circle cx="60" cy="37" r="2" fill="white"/>
+    <ellipse cx="50" cy="52" rx="9" ry="5" fill="#907060"/>
+    <path d="M41 56 Q50 64 59 56" stroke="#1A1A1A" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <ellipse cx="50" cy="76" rx="20" ry="11" fill="#A08060"/>`,
+
+  pastor: `<ellipse cx="50" cy="44" rx="26" ry="28" fill="#8B6914"/>
+    <ellipse cx="33" cy="16" rx="8" ry="16" fill="#6B4A10" transform="rotate(-5 33 16)"/>
+    <ellipse cx="67" cy="16" rx="8" ry="16" fill="#6B4A10" transform="rotate(5 67 16)"/>
+    <ellipse cx="50" cy="42" rx="20" ry="22" fill="#A07820"/>
+    <ellipse cx="50" cy="36" rx="14" ry="10" fill="#C8A040"/>
+    <circle cx="42" cy="36" r="4.5" fill="#1A1A0A"/>
+    <circle cx="58" cy="36" r="4.5" fill="#1A1A0A"/>
+    <circle cx="43" cy="35" r="1.8" fill="white"/>
+    <circle cx="59" cy="35" r="1.8" fill="white"/>
+    <ellipse cx="50" cy="46" rx="6" ry="4" fill="#8B6010"/>
+    <path d="M44 51 Q50 57 56 51" stroke="#1A1A0A" stroke-width="1.5" fill="none" stroke-linecap="round"/>`,
+
+  border: `<ellipse cx="50" cy="44" rx="25" ry="27" fill="#1A1A1A"/>
+    <ellipse cx="33" cy="15" rx="9" ry="15" fill="#0A0A0A" transform="rotate(-8 33 15)"/>
+    <ellipse cx="67" cy="15" rx="9" ry="15" fill="#0A0A0A" transform="rotate(8 67 15)"/>
+    <ellipse cx="50" cy="35" rx="13" ry="9" fill="white"/>
+    <circle cx="42" cy="36" r="4.5" fill="#1A3A6A"/>
+    <circle cx="58" cy="36" r="4.5" fill="#8B4513"/>
+    <circle cx="43" cy="35" r="1.5" fill="white"/>
+    <circle cx="59" cy="35" r="1.5" fill="white"/>
+    <ellipse cx="50" cy="47" rx="5" ry="3.5" fill="#333"/>
+    <path d="M44 52 Q50 58 56 52" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <ellipse cx="50" cy="74" rx="16" ry="10" fill="white"/>`,
+
+  xolo: `<ellipse cx="50" cy="46" rx="24" ry="27" fill="#704830"/>
+    <ellipse cx="32" cy="16" rx="7" ry="18" fill="#603820" transform="rotate(-8 32 16)"/>
+    <ellipse cx="68" cy="16" rx="7" ry="18" fill="#603820" transform="rotate(8 68 16)"/>
+    <ellipse cx="50" cy="44" rx="18" ry="21" fill="#805038"/>
+    <circle cx="41" cy="38" r="5" fill="#1A0A04"/>
+    <circle cx="59" cy="38" r="5" fill="#1A0A04"/>
+    <circle cx="42" cy="37" r="2" fill="white"/>
+    <circle cx="60" cy="37" r="2" fill="white"/>
+    <ellipse cx="50" cy="50" rx="5" ry="3.5" fill="#603020"/>
+    <path d="M44 55 Q50 61 56 55" stroke="#1A0A04" stroke-width="1.5" fill="none" stroke-linecap="round"/>`,
+
+  gato: `<circle cx="50" cy="48" r="24" fill="#E0A840"/>
+    <polygon points="28,30 22,8 38,24" fill="#C89030"/>
+    <polygon points="72,30 78,8 62,24" fill="#C89030"/>
+    <circle cx="42" cy="43" r="5" fill="#2D4A1A"/>
+    <circle cx="58" cy="43" r="5" fill="#2D4A1A"/>
+    <ellipse cx="42" cy="43" rx="2" ry="4" fill="#0A0A0A"/>
+    <ellipse cx="58" cy="43" rx="2" ry="4" fill="#0A0A0A"/>
+    <circle cx="42" cy="41" r="1.5" fill="white"/>
+    <circle cx="58" cy="41" r="1.5" fill="white"/>
+    <ellipse cx="50" cy="51" rx="4" ry="3" fill="#D09030"/>
+    <path d="M44 55 Q50 60 56 55" stroke="#0A0A0A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <line x1="33" y1="48" x2="16" y2="44" stroke="#C89030" stroke-width="1.2"/>
+    <line x1="33" y1="51" x2="14" y2="51" stroke="#C89030" stroke-width="1.2"/>
+    <line x1="33" y1="54" x2="16" y2="58" stroke="#C89030" stroke-width="1.2"/>
+    <line x1="67" y1="48" x2="84" y2="44" stroke="#C89030" stroke-width="1.2"/>
+    <line x1="67" y1="51" x2="86" y2="51" stroke="#C89030" stroke-width="1.2"/>
+    <line x1="67" y1="54" x2="84" y2="58" stroke="#C89030" stroke-width="1.2"/>`
+};
+
+const razaNombres = {
+  mestizo:'Mestizo / Criollo', chihuahua:'Chihuahua', golden:'Golden Retriever',
+  poodle:'Poodle', maltes:'Maltés', bulldog:'Bulldog', frenchbulldog:'French Bulldog',
+  pitbull:'Pitbull', pastor:'Pastor Alemán', border:'Border Collie',
+  xolo:'Xoloescuintle', gato:'Gato'
+};
+
+let fotoDataURL = null;
+
+function cargarFoto(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) {
+    alert('La foto es muy grande. Máximo 5MB.');
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    fotoDataURL = e.target.result;
+    document.getElementById('fotoPreview').src = fotoDataURL;
+    document.getElementById('fotoPreview').style.display = 'block';
+    document.getElementById('btnQuitarFoto').style.display = 'inline-block';
+    document.getElementById('fotoStatus').textContent = '✅ Foto cargada';
+    actualizar();
+  };
+  reader.readAsDataURL(file);
+}
+
+function quitarFoto() {
+  fotoDataURL = null;
+  document.getElementById('fotoPreview').style.display = 'none';
+  document.getElementById('btnQuitarFoto').style.display = 'none';
+  document.getElementById('fotoStatus').textContent = 'Sin foto · usando ilustración';
+  document.getElementById('inputFoto').value = '';
+  actualizar();
+}
+
+function actualizar() {
+  const nombre = document.getElementById('petName').value || 'Sin nombre';
+  const raza = document.getElementById('petRaza').value;
+  const edad = document.getElementById('petEdad').value;
+  const sexo = document.getElementById('petSexo').value;
+  const castrado = document.getElementById('petCastrado').value;
+  const color = document.getElementById('petColor').value;
+  const owner = document.getElementById('ownerName').value;
+  const phone = document.getElementById('ownerPhone').value;
+  const colonia = document.getElementById('ownerColonia').value;
+  const chip = document.getElementById('petChip').value;
+  const nota = document.getElementById('petNota').value;
+  const medicamento = document.getElementById('petMedicamento').value;
+  const chkMed = document.getElementById('chkMedicamento').checked;
+
+  document.getElementById('medicamentoField').style.display = chkMed ? 'flex' : 'none';
+
+  // Foto vs SVG
+  const svgEl = document.getElementById('petSVG');
+  const fotoEl = document.getElementById('petFoto');
+
+  if (fotoDataURL) {
+    svgEl.style.display = 'none';
+    fotoEl.style.display = 'block';
+    fotoEl.src = fotoDataURL;
+  } else {
+    svgEl.style.display = 'block';
+    fotoEl.style.display = 'none';
+    svgEl.innerHTML = razaSVGs[raza] || razaSVGs.mestizo;
+  }
+
+  document.getElementById('displayName').textContent = nombre;
+  document.getElementById('displayBreed').textContent = `${razaNombres[raza]} · ${edad}`;
+  document.getElementById('displayOwner').textContent = owner;
+  document.getElementById('displayColonia').textContent = colonia;
+
+  const msg = encodeURIComponent(`Hola, encontré a ${nombre} y quiero avisarte 🐾`);
+  document.getElementById('btnWhatsapp').href = `https://wa.me/52${phone}?text=${msg}`;
+  document.getElementById('btnLlamar').href = `tel:${phone}`;
+
+  document.getElementById('displayEdad').textContent = edad;
+  document.getElementById('displaySexo').textContent = `${sexo} · ${castrado === 'Sí' ? (sexo === 'Macho' ? 'Castrado ✅' : 'Esterilizada ✅') : 'No castrado/a'}`;
+  document.getElementById('displayColor').textContent = color;
+
+  if (chip) {
+    document.getElementById('chipRow').style.display = 'flex';
+    document.getElementById('displayChip').textContent = `#${chip}`;
+  } else {
+    document.getElementById('chipRow').style.display = 'none';
+  }
+
+  let chipsHTML = '';
+  if (document.getElementById('chkVacunas').checked) chipsHTML += `<span class="chip ok">✅ Vacunas al día</span>`;
+  if (document.getElementById('chkDespa').checked) chipsHTML += `<span class="chip ok">✅ Desparasitado</span>`;
+  if (document.getElementById('chkAlergia').checked) chipsHTML += `<span class="chip alert">⚠️ Tiene alergias</span>`;
+  if (chkMed && medicamento) chipsHTML += `<span class="chip">💊 ${medicamento}</span>`;
+  document.getElementById('displayChips').innerHTML = chipsHTML;
+  document.getElementById('displayNota').textContent = nota;
+}
+
+function toggleEditor() {
+  document.getElementById('editorContent').classList.toggle('hidden');
+}
+
+actualizar();
+</script>
+</body>
+</html>
